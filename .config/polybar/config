@@ -1,0 +1,370 @@
+;==========================================================
+;
+;
+;   ██████╗  ██████╗ ██╗  ██╗   ██╗██████╗  █████╗ ██████╗
+;   ██╔══██╗██╔═══██╗██║  ╚██╗ ██╔╝██╔══██╗██╔══██╗██╔══██╗
+;   ██████╔╝██║   ██║██║   ╚████╔╝ ██████╔╝███████║██████╔╝
+;   ██╔═══╝ ██║   ██║██║    ╚██╔╝  ██╔══██╗██╔══██║██╔══██╗
+;   ██║     ╚██████╔╝███████╗██║   ██████╔╝██║  ██║██║  ██║
+;   ╚═╝      ╚═════╝ ╚══════╝╚═╝   ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝
+;
+;													NEW
+;==========================================================
+
+[colors]
+background = #1d1f2110
+background-alt = #1d1f2110
+foreground = #55aa55
+foreground-alt = #55aaff
+primary = #55AA55
+secondary = #122E0D
+alert = #EA3636
+spetz = #00B2FF
+
+
+[bar/mybar]
+#monitor = ${env:MONITOR:HDMI-0}
+width = 100%
+height = 26
+;offset-x = 1%
+offset-y = 4
+radius = 0
+fixed-center = true
+locale = ru_RU.UTF-8
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+line-size = 1
+line-color = ${colors.foreground}
+border-size = 1
+border-color = ${colors.background}
+padding-left = 2  #отступ 
+padding-right = 2
+
+module-margin-left = 2
+module-margin-right = 4
+
+font-0 = fixed:pixelsize=9;5 #размер шрифта полибара+линия подчркивания
+font-1 = unifont:fontformat=truetype:size=8:antialias=false;5
+font-2 = siji:pixelsize=9;1 #было 10
+font-3 = Material Icons:style=Regular
+font-4 = FontAwesome 5 Free:size=10:style=Solid;5		#размер значков полибара (РЕГУЛИРУЕТСЯ ВЫСОТА ЗНАЧКОВ ОТНОСИТЕЛЬНО ТЕКСТА! )
+#font-4 = FontAwesome 5 Free:size=10:style=Regular;5
+
+modules-left =  i3 date eth wlan #filesystem
+modules-center = temperature memory cpu pulseaudio battery xkeyboard powermenu
+modules-right =  
+
+tray-position = right
+tray-padding = 10
+tray-transparent = true
+tray-background = ${colors.background}
+#tray-offset-x = -5%
+tray-maxsize = 12
+
+wm-restack = i3
+;override-redirect = true
+scroll-up = i3wm-wsnext
+scroll-down = i3wm-wsprev
+cursor-click = pointer
+cursor-scroll = ns-resize
+
+
+[module/xbacklight]
+type = internal/xbacklight
+format = <label> <bar>
+label = Свет 
+bar-width = 12
+bar-indicator = |
+bar-indicator-foreground = #55AA55
+bar-indicator-font = 2
+bar-fill = ─
+bar-fill-font = 2
+bar-fill-foreground = #55AA55
+bar-empty = ─
+bar-empty-font = 2
+bar-empty-foreground = #55AA55
+
+
+[module/backlight-acpi]
+inherit = module/xbacklight
+type = internal/backlight
+card = intel_backlight
+
+
+[module/xwindow]
+type = internal/xwindow
+label = %title:0:30:...%
+
+
+[module/xkeyboard]
+type = internal/xkeyboard
+blacklist-0 = num lock
+;format-prefix = " "
+format-prefix-foreground = ${colors.foreground-alt}
+format-prefix-underline = ${colors.secondary}
+label-layout =  Язык  %layout%
+label-indicator-padding = 2
+label-indicator-margin = 1
+label-indicator-background = ${colors.secondary}
+label-indicator-underline = ${colors.secondary}
+
+
+[module/filesystem]
+type = internal/fs
+interval = 25
+mount-0 = /
+label-mounted = %{F#0a81f5}%mountpoint%%{F-}: %percentage_used%%
+label-unmounted = %mountpoint% not mounted
+label-unmounted-foreground = ${colors.foreground-alt}
+
+
+[module/i3]
+type = internal/i3
+format = <label-state> <label-mode>
+index-sort = true
+wrapping-scroll = false
+####################################################?
+; Only show workspaces on the same output as the bar
+pin-workspaces = true
+####################################################?
+label-mode-padding = 2
+label-mode-foreground = #000
+label-mode-background = ${colors.primary}
+
+; focused = Active workspace on focused monitor
+label-focused = %index%
+label-focused-background = ${colors.background-alt}
+label-focused-underline= ${colors.primary}
+label-focused-padding = 2
+
+; unfocused = Inactive workspace on any monitor
+label-unfocused = %index%
+label-unfocused-padding = 2
+
+; visible = Active workspace on unfocused monitor
+label-visible = %index%
+label-visible-background = ${self.label-focused-background}
+label-visible-underline = ${self.label-focused-underline}
+label-visible-padding = ${self.label-focused-padding}
+; urgent = Workspace with urgency hint set
+label-urgent = %index%
+label-urgent-background = ${colors.alert}
+label-urgent-padding = 2
+; Separator in between workspaces
+; label-separator = |
+
+
+[module/cpu]
+type = internal/cpu
+interval = 2
+format-prefix = " "
+format-prefix-foreground = ${colors.foreground-alt}
+;format-underline = #f90000
+label =  CPU %percentage:2%%
+
+
+[module/memory]
+type = internal/memory
+interval = 2
+format-prefix = " "
+format-prefix-foreground = ${colors.foreground-alt}
+;format-underline = #4bffdc
+label =  Память %percentage_used%%
+
+
+
+[module/wlan]
+type = internal/network
+interface = wlp2s0
+interval = 3
+unknown-as-up = true
+format-connected = <label-connected>
+format-connected-prefix = "  "
+format-connected-prefix-foreground = ${colors.spetz}
+label-connected = %essid%
+label-connected-foreground = ${colors.spetz}
+
+
+
+[module/eth]
+type = internal/network
+interval = 3
+interface = enp0s29u1u2
+unknown-as-up = true
+
+;format-connected = <ramp-signal> <label-connected> #ориг
+format-connected = <label-connected>
+;format-connected-underline = 
+format-connected-prefix = " "
+format-connected-prefix-foreground = ${colors.spetz}
+;label-connected =%ifname% %local_ip% #ориг
+label-connected = GSM
+label-connected-foreground = ${colors.spetz}
+
+;format-disconnected = <label-disconnected>
+;format-disconnected-underline = ${self.format-connected-underline}
+;label-disconnected = %ifname% disconnected
+;label-disconnected-foreground = ${colors.foreground-alt}
+
+ramp-signal-0 = 😱
+ramp-signal-1 = 😠
+ramp-signal-2 = 😒
+ramp-signal-3 = 😊
+ramp-signal-4 = 😃
+ramp-signal-5 = 😈
+
+
+[module/brightnessctl]
+type = internal/brightnessctl
+
+format = <label> <bar>
+label = BL
+
+bar-width = 10
+bar-indicator = |
+bar-indicator-foreground = #fff
+bar-indicator-font = 2
+bar-fill = ─
+bar-fill-font = 2
+bar-fill-foreground = #9f78e1
+bar-empty = ─
+bar-empty-font = 2
+bar-empty-foreground = ${colors.foreground-alt}
+
+
+
+[module/date]
+type = internal/date
+interval = 1
+dqate =
+time =%{F#E0D9FF} %H:%M:%S 
+
+#клик ЛКМ открывает дату
+date-alt = %{F#E0D9FF} %a %e %B %Y
+time-alt = %H:%M
+format-prefix =
+#format-prefix-foreground = ${colors.foreground-alt}
+#format-overline = #7163AF
+#format-underline = #7163AF
+label = %date% %time%
+
+#Фон для модуля
+#format-background = #7163AF
+#format-foreground = #E0D9FF
+
+
+
+[module/pulseaudio]
+type = internal/pulseaudio
+
+format-volume = Звук   <bar-volume>
+#format-volume = Звук 	 <label-volume> <bar-volume>
+#label-volume =  %percentage%%
+label-volume-foreground = ${root.foreground}
+
+label-muted = -- ТИХО! --
+label-muted-foreground = #DF2929
+
+bar-volume-width = 12
+bar-volume-foreground-0 = ${colors.foreground}
+bar-volume-foreground-1 = ${colors.foreground}
+bar-volume-foreground-2 = ${colors.foreground}
+bar-volume-foreground-3 = ${colors.foreground}
+bar-volume-foreground-4 = ${colors.foreground}
+bar-volume-foreground-5 = ${colors.foreground}
+bar-volume-foreground-6 = ${colors.foreground}
+bar-volume-foreground-7 = ${colors.foreground}
+bar-volume-foreground-8 = ${colors.foreground}
+bar-volume-foreground-9 = ${colors.foreground}
+
+bar-volume-gradient = false
+bar-volume-indicator = |
+bar-volume-indicator-font = 2
+bar-volume-fill = ─
+bar-volume-fill-font = 2
+bar-volume-empty = ─
+bar-volume-empty-font = 2
+bar-volume-empty-foreground = ${colors.foreground}
+
+
+[module/battery]
+type = internal/battery
+label-font = 5
+full-at = 95
+battery = BAT1
+adapter = ADP1
+label-full =  %percentage%%
+label-charging = ---> %percentage%%
+format-charging = <animation-charging> <label-charging>
+label-discharging = -- разряжается %percentage%% --
+label-discharging-foreground = #DF2929
+format-discharging = <label-discharging>
+animation-charging-0 = 
+animation-charging-1 = 
+animation-charging-2 = 
+animation-charging-3 = 
+animation-charging-4 = 
+animation-charging-framerate = 200
+
+
+[module/temperature]
+type = internal/temperature
+interval = 3
+thermal-zone = 0
+warn-temperature = 80
+format = <label>
+format-warn = <label-warn> <animation-ramp> 
+label = t %temperature%
+label-warn =  ЖАРКО %temperature%
+label-warn-foreground = ${colors.alert}
+ramp-foreground = ${colors.foreground}
+
+;format-overline = ${colors.alert}
+;format-underline = ${colors.alert}
+format-warn-underline = ${colors.alert}
+format-warn-overline = ${colors.alert}
+
+
+[module/powermenu]
+type = custom/menu
+format-foreground = ${colors.foreground}
+format-background = ${colors.background}
+label-open = ""
+label-open-font = 4
+label-close = ""
+label-close-foreground = ${colors.foreground}
+label-separator = " / "
+label-separator-foreground = ${colors.secondary}
+; reboot
+menu-0-1 = 
+menu-0-1-exec = systemctl reboot
+menu-0-1-foreground = ${colors.foreground}
+; shutdown
+menu-0-0 = "  "
+menu-0-0-exec = systemctl poweroff
+menu-0-0-foreground = ${colors.foreground}
+; suspend
+menu-0-2 = " "
+menu-0-2-exec = systemctl suspend
+menu-0-2-foreground = ${colors.foreground}
+
+
+
+[module/usb0]
+inherit = module/eth
+interface = usb0
+
+
+[settings]
+screenchange-reload = true
+;compositing-background = xor
+;compositing-background = screen
+;compositing-foreground = source
+;compositing-border = over
+;pseudo-transparency = false
+
+[global/wm]
+margin-top = 5
+margin-bottom = 5
+; vim:ft=dosini
