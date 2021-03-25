@@ -190,7 +190,7 @@ label-connected-foreground = ${colors.spetz}
 [module/eth]
 type = internal/network
 interval = 3
-interface = enp0s29u1u2
+interface = enp3s0
 unknown-as-up = true
 
 ;format-connected = <ramp-signal> <label-connected> #ориг
