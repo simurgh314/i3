@@ -55,15 +55,14 @@ client.background       #ffffff
 #=============================================================================
 exec --no-startup-id setxkbmap "us,ru" ",winkeys" "grp:toggle"  #переключение раскладки правый альт
 exec --no-startup-id flameshot
-exec --no-startup-id crow &
+#exec --no-startup-id crow &
 exec --no-startup-id --systray pavucontrol &
 exec --no-startup-id numlockx 
 exec --no-startup-id xfce4-clipman &          
 exec --no-startup-id nitrogen --restore
-exec --no-startup-id konsole --background-mode
 exec --no-startup-id thunar --daemon
-#exec --no-startup-id lxqt-policykit-agent
-exec --no-startup-id xscreensaver -no-splash
+exec --no-startup-id lxqt-policykit-agent
+#exec --no-startup-id xscreensaver -no-splash
 #exec --no-startup-id lxqt-notificationd
 #exec --no-startup-id
 #exec --no-startup-id
@@ -74,21 +73,20 @@ exec --no-startup-id xscreensaver -no-splash
 # ХОТКЕИ
 #=======================================================================
 bindsym F1 exec --no-startup-id subl3 #~/.config/i3/config
-bindsym $mod+z exec --no-startup-id /usr/bin/konsole  -e  /usr/bin/mc
-bindsym $mod+Delete exec --no-startup-id /usr/bin/konsole  -e  /usr/bin/htop
-bindsym $mod+x exec --no-startup-id /usr/bin/konsole  -e  ranger
-bindsym $mod+F1 exec --no-startup-id thunar /home/USER/
+bindsym $mod+z exec --no-startup-id xfce4-terminal -e  /usr/bin/mc
+bindsym $mod+Delete exec --no-startup-id xfce4-terminal  -e  /usr/bin/htop
+#bindsym $mod+i exec --no-startup-id /usr/bin/konsole -e sudo iptraf-ng
+#bindsym $mod+x exec --no-startup-id /usr/bin/konsole  -e  ranger
+bindsym $mod+F1 exec --no-startup-id thunar /home/$USER/
 bindsym $mod+F2 exec --no-startup-id audacious
-bindsym $mod+F3 exec --no-startup-id firefox
+bindsym $mod+F3 exec --no-startup-id opera
 bindsym $mod+F4 exec --no-startup-id telegram-desktop
 bindsym $mod+F6 exec --no-startup-id simplescreenrecorder
 bindsym $mod+k exec --no-startup-id speedcrunch
 bindsym $mod+F7 exec --no-startup-id pavucontrol &
 bindsym F12 exec --no-startup-id flameshot gui
 bindsym F2 exec --no-startup-id meld
-
-bindsym $mod+Shift+t exec --no-startup-id konsole -e systemctl restart dhcpcd.service
-bindsym $mod+Shift+w exec --no-startup-id konsole -e netctl restart wlp2s0-Matrix
+bindsym $mod+F5 exec --no-startup-id /usr/bin/dtm-client
 
 bindsym $mod+p exec --no-startup-id /home/USER/CODE/VSCode-linux-x64/code
 
