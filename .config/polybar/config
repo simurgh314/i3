@@ -24,13 +24,13 @@ spetz = #00B2FF
 
 [bar/mybar]
 #monitor = ${env:MONITOR:HDMI-0}
+locale = ru_RU.UTF-8
 width = 100%
 height = 26
 ;offset-x = 1%
 offset-y = 4
 radius = 0
 fixed-center = true
-locale = ru_RU.UTF-8
 
 background = ${colors.background}
 foreground = ${colors.foreground}
@@ -48,12 +48,12 @@ font-0 = fixed:pixelsize=9;5 #размер шрифта полибара+лин�
 font-1 = unifont:fontformat=truetype:size=8:antialias=false;5
 font-2 = siji:pixelsize=9;1 #было 10
 font-3 = Material Icons:style=Regular
-font-4 = FontAwesome 5 Free:size=10:style=Solid;5		#размер значков полибара (РЕГУЛИРУЕТСЯ ВЫСОТА ЗНАЧКОВ ОТНОСИТЕЛЬНО ТЕКСТА! )
+font-4 = FontAwesome 5 Free:size=9:style=Solid;5		#размер значков полибара (РЕГУЛИРУЕТСЯ ВЫСОТА ЗНАЧКОВ ОТНОСИТЕЛЬНО ТЕКСТА! )
 #font-4 = FontAwesome 5 Free:size=10:style=Regular;5
 
-modules-left =  i3 date eth wlan #filesystem
-modules-center = temperature memory cpu pulseaudio battery xkeyboard powermenu
-modules-right =  
+modules-left =  i3 date eth wlan
+modules-center = temperature memory cpu pulseaudio battery xkeyboard
+modules-right = powermenu 
 
 tray-position = right
 tray-padding = 10
@@ -103,7 +103,7 @@ blacklist-0 = num lock
 ;format-prefix = " "
 format-prefix-foreground = ${colors.foreground-alt}
 format-prefix-underline = ${colors.secondary}
-label-layout =  Язык  %layout%
+label-layout =   %layout%
 label-indicator-padding = 2
 label-indicator-margin = 1
 label-indicator-background = ${colors.secondary}
@@ -170,7 +170,7 @@ interval = 2
 format-prefix = " "
 format-prefix-foreground = ${colors.foreground-alt}
 ;format-underline = #4bffdc
-label =  Память %percentage_used%%
+label =  %percentage_used%%
 
 
 
@@ -190,7 +190,8 @@ label-connected-foreground = ${colors.spetz}
 [module/eth]
 type = internal/network
 interval = 3
-interface = enp3s0
+interface = enp0s29u1u2
+#interface = enp0s29u1u1
 unknown-as-up = true
 
 ;format-connected = <ramp-signal> <label-connected> #ориг
@@ -207,12 +208,12 @@ label-connected-foreground = ${colors.spetz}
 ;label-disconnected = %ifname% disconnected
 ;label-disconnected-foreground = ${colors.foreground-alt}
 
-ramp-signal-0 = 😱
-ramp-signal-1 = 😠
-ramp-signal-2 = 😒
-ramp-signal-3 = 😊
-ramp-signal-4 = 😃
-ramp-signal-5 = 😈
+ramp-signal-0 = 
+ramp-signal-1 = 
+ramp-signal-2 = 
+ramp-signal-3 = 
+ramp-signal-4 = 
+ramp-signal-5 = 
 
 
 [module/brightnessctl]
@@ -260,7 +261,7 @@ type = internal/pulseaudio
 
 format-volume = Звук   <bar-volume>
 #format-volume = Звук 	 <label-volume> <bar-volume>
-#label-volume =  %percentage%%
+#label-volume =  %percentage%%
 label-volume-foreground = ${root.foreground}
 
 label-muted = -- ТИХО! --
@@ -286,6 +287,17 @@ bar-volume-fill-font = 2
 bar-volume-empty = ─
 bar-volume-empty-font = 2
 bar-volume-empty-foreground = ${colors.foreground}
+
+
+
+[module/mic]
+type = custom/script
+interval = 1
+
+format=%{A1:pavucontrol -t 4:}<label>%{A}
+
+#exec = /home/user/.config/polybar/scripts/mic
+
 
 
 [module/battery]
@@ -332,23 +344,26 @@ format-foreground = ${colors.foreground}
 format-background = ${colors.background}
 label-open = ""
 label-open-font = 4
-label-close = ""
+label-close = " "
 label-close-foreground = ${colors.foreground}
-label-separator = " / "
+label-separator = "  "
 label-separator-foreground = ${colors.secondary}
 ; reboot
-menu-0-1 = 
+menu-0-1 = " "
 menu-0-1-exec = systemctl reboot
 menu-0-1-foreground = ${colors.foreground}
 ; shutdown
-menu-0-0 = "  "
+menu-0-0 = " "
 menu-0-0-exec = systemctl poweroff
 menu-0-0-foreground = ${colors.foreground}
 ; suspend
 menu-0-2 = " "
 menu-0-2-exec = systemctl suspend
 menu-0-2-foreground = ${colors.foreground}
-
+; hibernation
+menu-0-3 = " "
+menu-0-3-exec = systemctl hibernate
+menu-0-3-foreground = ${colors.foreground}
 
 
 [module/usb0]
